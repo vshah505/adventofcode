@@ -3,7 +3,7 @@ import string
 import utils
 
 PRIORITIES = {
-    item: priority
+    item: priority + 1
     for priority, item in enumerate(
         list(string.ascii_lowercase) + list(string.ascii_uppercase)
     )
@@ -22,8 +22,8 @@ def part1():
         PRIORITIES[
             next(
                 iter(
-                    set(rucksack[: int(len(rucksack) / 2)]).intersection(
-                        rucksack[int(len(rucksack) / 2) :]
+                    set(rucksack[:len(rucksack) // 2]).intersection(
+                        rucksack[len(rucksack) // 2:]
                     )
                 )
             )

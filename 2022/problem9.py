@@ -1,6 +1,13 @@
 import utils
 
 
+def get_input():
+    with utils.get_input_fd(__file__) as f:
+        return [
+            (line.strip().split(" ")[0], int(line.strip().split(" ")[1])) for line in f
+        ]
+
+
 def move_in_direction(position, direction):
     if direction == "U":
         return position[0] - 1, position[1]
@@ -27,30 +34,8 @@ def shift_tail(head, tail):
     return tail
 
 
-def get_input():
-    with utils.get_input_fd(__file__) as f:
-        return [
-            (line.strip().split(" ")[0], int(line.strip().split(" ")[1])) for line in f
-        ]
-
-
-def part1():
-    moves = get_input()
-    head = tail = (0, 0)
-    visited = {(0, 0)}
-
-    for direction, steps in moves:
-        for step in range(steps):
-            head = move_in_direction(head, direction)
-            tail = shift_tail(head, tail)
-            visited.add(tail)
-
-    return len(visited)
-
-
-def part2():
-    moves = get_input()
-    knots = [(0, 0)] * 10
+def get_num_visited_tails(moves, num_knots):
+    knots = [(0, 0)] * num_knots
     visited = {(0, 0)}
 
     for direction, steps in moves:
@@ -62,6 +47,16 @@ def part2():
             visited.add(knots[-1])
 
     return len(visited)
+
+
+def part1():
+    moves = get_input()
+    return get_num_visited_tails(moves, 2)
+
+
+def part2():
+    moves = get_input()
+    return get_num_visited_tails(moves, 10)
 
 
 if __name__ == "__main__":

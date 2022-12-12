@@ -1,14 +1,6 @@
-import enum
 import math
 
 import utils
-
-
-class Direction(enum.Enum):
-    NORTH = (-1, 0)
-    SOUTH = (1, 0)
-    EAST = (0, 1)
-    WEST = (0, -1)
 
 
 def get_input():
@@ -27,25 +19,21 @@ def is_visible(tree_grid, i, j):
     return min([max_north, max_south, max_east, max_west]) < tree_grid[i][j]
 
 
-def move_in_direction(position, direction):
-    return position[0] + direction.value[0], position[1] + direction.value[1]
-
-
 def scenic_score(tree_grid, i, j):
     rows = len(tree_grid)
     columns = len(tree_grid[0])
     score = 1
 
-    for direction in Direction:
+    for direction in utils.Direction:
         visible_trees = 0
-        current_position = move_in_direction((i, j), direction)
+        current_position = utils.move_in_direction((i, j), direction)
         while 0 <= current_position[0] < rows and 0 <= current_position[1] < columns:
             visible_trees += 1
 
             if tree_grid[current_position[0]][current_position[1]] >= tree_grid[i][j]:
                 break
 
-            current_position = move_in_direction(current_position, direction)
+            current_position = utils.move_in_direction(current_position, direction)
 
         score *= visible_trees
 

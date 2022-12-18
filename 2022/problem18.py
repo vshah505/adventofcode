@@ -2,25 +2,24 @@ import utils
 import numpy
 from scipy import ndimage
 
-DIRECTIONS_3D = [
-    (1, 0, 0),
-    (-1, 0, 0),
-    (0, 1, 0),
-    (0, -1, 0),
-    (0, 0, 1),
-    (0, 0, -1)
-]
+DIRECTIONS_3D = [(1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1)]
 
 
 def get_input():
     with utils.get_input_fd(__file__) as f:
-        lava_cubes = [tuple(int(val) for val in line.split(',')) for line in f.read().split('\n')]
+        lava_cubes = [
+            tuple(int(val) for val in line.split(",")) for line in f.read().split("\n")
+        ]
 
     return lava_cubes
 
 
 def get_exposed_faces(lava_cubes):
-    return sum((x + dx, y + dy, z + dz) not in lava_cubes for dx, dy, dz in DIRECTIONS_3D for x, y, z in lava_cubes)
+    return sum(
+        (x + dx, y + dy, z + dz) not in lava_cubes
+        for dx, dy, dz in DIRECTIONS_3D
+        for x, y, z in lava_cubes
+    )
 
 
 def part1():

@@ -33,7 +33,7 @@ def part2():
     # Create an empty surface with one layer of space on each side of the lava cubes
     surface = numpy.zeros(lava_cubes.max(axis=0, initial=0) + 1)
 
-    # Transpose the 3 dimensional space and set the lava cubes on the surface
+    # Transpose the lava cube coordinates into lists of x,y,z and set the lava cubes on the surface
     x, y, z = lava_cubes.T
     surface[x, y, z] = 1
 

@@ -15,21 +15,14 @@ def snafu_to_base_10(snafu):
         '=': -2
     }
 
-    number = 0
-
-    current_power = 1
-    for power, digit in enumerate(reversed(snafu)):
-        number += current_power * digits[digit]
-        current_power *= 5
-
-    return number
+    return sum(
+        (5 ** power) * digits[digit]
+        for power, digit in enumerate(reversed(snafu))
+    )
 
 
 def base10_to_snafu(number):
     digits = {
-        2: '2',
-        1: '1',
-        0: '0',
         -1: '-',
         -2: '='
     }

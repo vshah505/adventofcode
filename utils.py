@@ -20,11 +20,12 @@ def get_input_fd(
     problem_file: str,
 ):
     problem_path = pathlib.Path(problem_file).resolve()
-    input_path = os.path.join(problem_path.parent, "inputs", f"{problem_path.stem}.txt")
+    input_path = os.path.join(
+        problem_path.parent.parent,
+        "inputs",
+        problem_path.parent.stem,
+        f"{problem_path.stem}.txt",
+    )
     fd = open(input_path, "r")
     yield fd
     fd.close()
-
-
-
-
